@@ -78,7 +78,7 @@ def display_inventory(inventory):
         for index, item in enumerate(inventory):
             print(f"{index + 1}. {item}")
 
-def enter_dungeon(player_stats, inventory, dungeon_rooms):
+def enter_dungeon(player_stats, inventory, dungeon_rooms, artifacts):
     """In this section, I use the "in" opperator to run
     through all the possible dungeon rooms in the
     list of tuples."""
@@ -106,8 +106,12 @@ def enter_dungeon(player_stats, inventory, dungeon_rooms):
                     print(room[3][1])
                     print(f"You lost {room[3][2]} HP.")
             if solve_or_skip == "skip":
-                print(room[3][1])
-            player_stats['health'] += room[3][2]
+                if artifacts.get("staff_of_wisdom") == None:
+                    print(room[3][1])
+                player_stats['health'] += room[3][2]
+                if artifacts.get("satff_of_wisdom") != None:
+                    print("you used your knowledge to bypass the challenge")
+
         if room[2] == "trap":
             print("You see a potential trap!")
             disarm_or_bypass = input("Will you disarm or bypass the trap?")
